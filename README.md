@@ -2,6 +2,10 @@
 
 A sleek, native Windows WPF application that perfectly mirrors audio across multiple devices, replicating the macOS "Multi-Output Device" feature seamlessly on Windows.
 
+## MINOR BUG
+- **Bluetooth latency**: There is little bit latency in bluetooth devices.
+
+
 ## ✨ Features
 - **Modern Dark UI**: Beautiful, fully responsive interface with custom layouts, drop shadows, and visual polish.
 - **Ultra-Low Latency Routing**: Uses NAudio and Windows Audio Session API (WASAPI) with a hyper-aggressive EventSync engine (clamped natively to 15ms) to completely eliminate drift.
