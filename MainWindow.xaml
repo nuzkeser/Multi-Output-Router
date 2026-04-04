@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Multi-Output Audio Router" Height="520" Width="440"
         Background="#0D1117" Foreground="White" WindowStartupLocation="CenterScreen"
-        FontFamily="Segoe UI">
+        Icon="app_icon.ico" FontFamily="Segoe UI">
     
     <Window.Resources>
         <Style TargetType="ScrollViewer">
@@ -34,22 +34,6 @@
 
         <TextBlock Text="Virtual Multi-Output" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5" Foreground="#58A6FF"/>
         <TextBlock Text="Mirror audio perfectly across multiple devices." FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,25" Foreground="#8B949E" Grid.Row="1"/>
-
-        <!-- Driver Install Banner -->
-        <Border x:Name="DriverInstallBanner" Grid.Row="2" Background="#3D1A1A" CornerRadius="10" Padding="15" Margin="0,0,0,15" Visibility="Collapsed">
-            <Border.Effect>
-                <DropShadowEffect Color="Black" BlurRadius="10" Opacity="0.3" Direction="270" ShadowDepth="2"/>
-            </Border.Effect>
-            <StackPanel>
-                <TextBlock Text="⚠️ Zero-Latency Driver Missing" FontWeight="Bold" FontSize="15" Margin="0,0,0,5" Foreground="#FF7B72"/>
-                <TextBlock Text="To achieve perfect zero-latency sync, install the free VB-Cable driver." TextWrapping="Wrap" Margin="0,0,0,12" Foreground="#FFAAAA" FontSize="13"/>
-                <Button Content="Install Virtual Cable (Requires Admin)" Height="34" Background="#DA3633" Foreground="White" FontWeight="Bold" BorderThickness="0" Click="InstallDriverButton_Click" Cursor="Hand">
-                    <Button.Resources>
-                        <Style TargetType="Border"><Setter Property="CornerRadius" Value="6"/></Style>
-                    </Button.Resources>
-                </Button>
-            </StackPanel>
-        </Border>
 
         <!-- Source Section -->
         <Border Grid.Row="3" Background="#161B22" CornerRadius="10" Padding="18" Margin="0,0,0,15">

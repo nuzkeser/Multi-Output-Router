@@ -23,23 +23,15 @@ namespace MultiOutputRouter
             var allDevices = _deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ToList();
             
             var validDevices = new List<MMDevice>();
-            bool hasVirtualCable = false;
 
             foreach (var d in allDevices)
             {
                 try
                 {
-                    string name = d.FriendlyName; 
                     validDevices.Add(d);
-                    if (name.Contains("CABLE") || name.Contains("VB-Audio"))
-                    {
-                        hasVirtualCable = true;
-                    }
                 }
                 catch { } 
             }
-
-            DriverInstallBanner.Visibility = hasVirtualCable ? Visibility.Collapsed : Visibility.Visible;
 
             SourceComboBox.SelectionChanged -= SourceComboBox_SelectionChanged;
             SourceComboBox.ItemsSource = validDevices;
@@ -221,49 +213,5 @@ namespace MultiOutputRouter
             }
         }
 
-        private async void InstallDriverButton_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = sender as Button;
-            btn.Content = "Downloading...";
-            btn.IsEnabled = false;
-
-            try
-            {
-                string zipPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "VBCABLE_Driver.zip");
-                string extractPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "VBCABLE_Driver");
-
-                using (var client = new System.Net.Http.HttpClient())
-                {
-                    var bytes = await client.GetByteArrayAsync("https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip");
-                    System.IO.File.WriteAllBytes(zipPath, bytes);
-                }
-
-                if (System.IO.Directory.Exists(extractPath))
-                    System.IO.Directory.Delete(extractPath, true);
-
-                System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
-
-                string exePath = System.IO.Path.Combine(extractPath, "VBCABLE_Setup_x64.exe");
-
-                var processInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = exePath,
-                    UseShellExecute = true,
-                    Verb = "runas"
-                };
-
-                var proc = System.Diagnostics.Process.Start(processInfo);
-                await System.Threading.Tasks.Task.Run(() => proc.WaitForExit());
-
-                MessageBox.Show("Driver installation finished! Please restart the app for the new Virtual Device to appear.", "Setup Complete", MessageBoxButton.OK, MessageBoxImage.Information);
-                Application.Current.Shutdown();
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show("Failed to install driver: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                btn.Content = "Install Virtual Cable (Requires Admin)";
-                btn.IsEnabled = true;
-            }
-        }
     }
 }

@@ -28,6 +28,10 @@ bld/
 [Ll]ogs/
 [Oo]utput/
 [Ss]etup.iss
+*.ico
+*.exe
+*.png
+*.jpg
 
 # Visual Studio 2015/2017/2019/2022 cache/options directory
 .vs/
